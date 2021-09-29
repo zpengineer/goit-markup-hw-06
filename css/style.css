@@ -10,7 +10,6 @@
   --footer-link-color: rgba(255, 255, 255, 0.6);
   --border-color: #eeeeee;
   --icon-primary-color: #afb1b8;
-  --icon-secondary-color: #2196f3;
   --card-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
   --button-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 1px 2px rgba(0, 0, 0, 0.08),
@@ -43,6 +42,10 @@ h5,
 h6 {
   margin: 0;
   padding: 0;
+}
+
+textarea {
+  resize: none;
 }
 
 /* Утилиты */
@@ -93,6 +96,7 @@ h6 {
 }
 
 .section.team {
+  width: 100%;
   background-color: var(--button-bg-color);
 }
 
@@ -225,6 +229,7 @@ h6 {
 /* Стили подвала сайта */
 
 .footer {
+  width: 100%;
   padding-top: 60px;
   padding-bottom: 60px;
 
@@ -234,6 +239,8 @@ h6 {
 .container.footer-contant {
   display: flex;
   flex-wrap: wrap;
+
+  justify-content: space-between;
 }
 
 .footer-social {
@@ -241,7 +248,8 @@ h6 {
   margin-left: 70px;
 }
 
-.footer-social .title {
+.footer-social .title,
+.signup-form .title {
   font-weight: 700;
   font-size: 14px;
   line-height: 1.14;
@@ -298,7 +306,39 @@ h6 {
 
 .footer-social .social-block__link.social:hover,
 .footer-social .social-block__link.social:focus {
-  background-color: var(--icon-secondary-color);
+  background-color: var(--accent-color);
+}
+
+/* стили для формы в футере */
+
+.signup-form {
+  margin-left: 93px;
+  margin-top: 12px;
+}
+
+.signup-form .input-email {
+  width: 358px;
+  height: 50px;
+  margin-right: 12px;
+
+  padding: 15px 16px;
+
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  box-sizing: border-box;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.15));
+  border-radius: 4px;
+
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.signup-form .input-email::placeholder {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  letter-spacing: 0.03em;
+
+  color: rgba(255, 255, 255, 0.6);
 }
 
 /* Стили секции герой */
@@ -315,8 +355,6 @@ h6 {
   background-position: center;
   background-size: cover;
   background-color: var(--section-bg-color);
-
-  text-align: center;
 }
 
 .hero-title {
@@ -325,8 +363,10 @@ h6 {
   line-height: 1.36;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  text-align: center;
 
-  margin-top: 0;
+  max-width: 650px;
+  margin: 0 auto;
   margin-bottom: 30px;
 
   color: var(--white-color);
@@ -364,8 +404,8 @@ h6 {
   transform: translate(-50%, -50%) scale(1);
   transition: transform 250ms var(--timing-function);
 
-  min-width: 528px;
-  min-height: 581px;
+  max-width: 528px;
+  height: 581px;
 
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
@@ -373,24 +413,148 @@ h6 {
   background-color: var(--white-color);
 }
 
-.close-button {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+/* Стили формы модального окна */
 
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  align-self: start;
+.form-modal {
+  padding: 40px;
+}
 
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.1);
+.form-field {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 28px;
+}
+
+.form-field:last-of-type {
+  margin-bottom: 20px;
+}
+
+.form-field .form-input,
+.form-field .form-comment {
+  width: 100%;
+
+  border: 1px solid rgba(33, 33, 33, 0.2);
   box-sizing: border-box;
-  background-color: var(--white-color);
+  border-radius: 4px;
 
+  transition: fill 250ms var(--timing-function), border-color 250ms var(--timing-function);
+}
+
+.form-field .form-input {
+  height: 40px;
+
+  margin: 0px;
+  padding: 0px 0px 0px 42px;
+}
+
+.form-field .form-comment {
+  max-height: 120px;
+
+  padding: 12px 16px;
+}
+
+.form-input:focus,
+.form-input:hover,
+.form-comment:focus,
+.form-comment:hover {
   cursor: pointer;
+  border-color: var(--accent-color);
+}
+
+.form-input:focus ~ .icon,
+.form-input:hover ~ .icon {
+  fill: var(--accent-color);
+}
+
+.form-field label {
+  position: absolute;
+  top: -18px;
+  left: 0;
+
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  color: #757575;
+}
+
+.form-modal .form-comment::placeholder {
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 1.16;
+  letter-spacing: 0.01em;
+  color: rgba(117, 117, 117, 0.5);
+}
+
+.form-field .icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+
+  transform: translateY(-50%);
+}
+
+.form-modal .title {
+  display: block;
+  margin-bottom: 30px;
+
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 1.15;
+  text-align: center;
+  letter-spacing: 0.03em;
+  color: #212121;
+}
+
+.checkbox-label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin-bottom: 30px;
+}
+
+.checkbox {
+  /* -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  position: absolute; */
+
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip: rect(0 0 0 0);
+}
+
+.checkbox-icon {
+  display: inline-block;
+  width: 16px;
+  height: 15px;
+
+  margin-right: 7px;
+
+  transition: fill 250ms var(--timing-function), background-color 250ms var(--timing-function);
+}
+
+.checkbox:checked + .checkbox-icon {
+  border-radius: 2px;
+  background-image: url('../img/check.svg');
+  background-size: contain;
+  background-color: var(--accent-color);
+  fill: var(--accent-color);
+}
+
+.checkbox-link {
+  margin-left: 5px;
+  color: var(--accent-color);
 }
 
 /* Стили секции преимуществ */
@@ -561,7 +725,7 @@ h6 {
 
 .social-block .social-block__link:hover,
 .social-block .social-block__link:focus {
-  background-color: var(--icon-secondary-color);
+  background-color: var(--accent-color);
   fill: var(--white-color);
 }
 
@@ -632,8 +796,8 @@ h6 {
 
 .clients-cards .link:hover,
 .clients-cards .link:focus {
-  border: 1px solid var(--icon-secondary-color);
-  fill: var(--icon-secondary-color);
+  border: 1px solid var(--accent-color);
+  fill: var(--accent-color);
 }
 
 /* Страница портфолио */
@@ -795,8 +959,9 @@ h6 {
 }
 
 .button.secondary {
-  background-color: var(--accent-color);
-  color: var(--white-color);
+  display: block;
+  margin: 0 auto;
+  padding: 10px 32px;
 
   font-weight: 700;
   font-size: 16px;
@@ -804,8 +969,8 @@ h6 {
   letter-spacing: 0.06em;
   cursor: pointer;
 
-  min-width: 200px;
-  padding: 10px 32px;
+  background-color: var(--accent-color);
+  color: var(--white-color);
 
   transition: background-color 250ms var(--timing-function);
 }
@@ -813,4 +978,82 @@ h6 {
 .button.secondary:hover,
 .button.secondary:focus {
   background-color: var(--button-secondary-bg-color);
+}
+
+/* Стили кнопок форм */
+
+/* Кнопка закрытия модального окна */
+
+.close-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+
+  transition: fill 250ms var(--timing-function);
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: start;
+
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  background-color: var(--white-color);
+
+  cursor: pointer;
+}
+
+.close-button:hover,
+.close-button:focus {
+  fill: var(--accent-color);
+}
+
+.submit-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.87;
+  text-align: center;
+  letter-spacing: 0.06em;
+  color: var(--white-color);
+  cursor: pointer;
+
+  background-color: var(--accent-color);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+  border: none;
+  border-radius: 4px;
+
+  transition: background-color 250ms var(--timing-function);
+}
+
+.submit-btn.secondary {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 55px;
+}
+
+.submit-btn.secondary:hover,
+.submit-btn.secondary:focus,
+.submit-btn.primary:hover,
+.submit-btn.primary:focus {
+  background-color: var(--button-secondary-bg-color);
+}
+
+.submit-btn.primary {
+  min-width: 200px;
+  height: 50px;
+  padding: 10px 0;
+}
+
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 10px;
+  fill: var(--white-color);
 }
